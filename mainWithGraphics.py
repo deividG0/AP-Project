@@ -3,6 +3,7 @@ import random
 import string
 import time
 import scipy.optimize as so
+import numpy as np
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
@@ -224,20 +225,22 @@ if __name__ == '__main__':
         if s != ' ':
             grafo.setFinal(s)
 
+    #########################
+
     results_list = []
 
-    wa = 'aaaaaaaaa'
-    wb = 'bbbbbbbbb'
+    wa = 'aaaaa'
+    wb = 'bbbbb'
     input_list = []
 
     i = 0
 
-    for i in range(15):
+    for i in range(250):
         w = wa + wb
         input_list.append(w)
         # roda
-        wa = wa * 2
-        wb = wb * 2
+        wa = wa + 'aaaaaaaaaaaaaaaaaaaa'
+        wb = wb + 'bbbbbbbbbbbbbbbbbbbb'
 
     #print(input_list)
 
@@ -265,8 +268,21 @@ if __name__ == '__main__':
 
     print(input_list_size)
 
-    regressor = LinearRegression()
-    print(regressor.fit(input_list_size,execution_time_list))
+    x = np.array(input_list_size)
+    y = np.array(execution_time_list)
 
-    plt.scatter(input_list_size, execution_time_list)
+    mod_linear = np.polyfit(x, y, 1)
+    print(mod_linear)
+
+    a = float(mod_linear[0])
+    b = float(mod_linear[1])
+
+    y_mod = a * x + b
+
+    plt.plot(input_list_size, execution_time_list, "o", label="Execuções de palavras")
+    plt.plot(x,y_mod, "-r", label="Regressão Linear")
+    plt.xlabel("Quantidade de caracteres da palavra de entrada")
+    plt.ylabel("Tempo de execução (em segundos)")
+    plt.title("Análise de execução do AP")
+    plt.legend()
     plt.show()
