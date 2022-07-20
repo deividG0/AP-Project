@@ -235,7 +235,8 @@ if __name__ == '__main__':
 
     i = 0
 
-    for i in range(250):
+    for i in range(300):
+        sustenido = "#"
         w = wa + wb
         input_list.append(w)
         # roda
@@ -273,6 +274,7 @@ if __name__ == '__main__':
 
     mod_linear = np.polyfit(x, y, 1)
     print(mod_linear)
+    print(mod_linear[0])
 
     a = float(mod_linear[0])
     b = float(mod_linear[1])

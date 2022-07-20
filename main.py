@@ -211,8 +211,12 @@ class Grafo:
                         haveLambdaTransition = False
                         for x in T:
                             for a in self.arestas:
-                                if x[2] != '':
-                                    if a.inicio == x[0] and a.letter == "*" and a.desempilha == x[2][0]:
+                                if x[2] != '' or (x[2] == '' and a.desempilha == "*"):
+                                    if x[2] == '':
+                                        bool = True
+                                    else:
+                                        bool = (a.desempilha == x[2][0])
+                                    if a.inicio == x[0] and a.letter == "*" and bool:
                                         haveLambdaTransition = True
                                         break
                             if (x is None or x[1] == "" or x[1] == "*") and haveLambdaTransition is False:
